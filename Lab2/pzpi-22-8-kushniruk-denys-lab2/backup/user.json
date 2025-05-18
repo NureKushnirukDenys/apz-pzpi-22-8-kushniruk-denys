@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "6762eeb50ce0c549542bfd7d",
+    "email": "user1@example.com",
+    "password": "hashedpassword1",
+    "role": "user",
+    "firstName": "John",
+    "lastName": "Doe",
+    "profileImage": "url_to_image_1"
+  },
+  {
+    "_id": "6762eeb60ce0c549542bfd80",
+    "email": "admin@example.com",
+    "password": "hashedpassword2",
+    "role": "admin",
+    "firstName": "Admin",
+    "lastName": "User",
+    "profileImage": "url_to_image_2"
+  }
+]

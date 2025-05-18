@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "6762eeb60ce0c549542bfd8a",
+    "roomId": "6762eeb60ce0c549542bfd84",
+    "status": false,
+    "brightness": 24,
+    "lastActivated": "2024-12-18T15:48:06.624Z",
+    "schedule": {
+      "start": "2024-12-14T18:00:00.000Z",
+      "end": "2024-12-14T22:00:00.000Z"
+    },
+    "motionDetected": true
+  },
+  {
+    "_id": "6762eeb60ce0c549542bfd89",
+    "roomId": "6762eeb60ce0c549542bfd82",
+    "status": true,
+    "brightness": 80,
+    "lastActivated": "2024-12-18T15:48:06.624Z",
+    "schedule": {
+      "start": "2024-12-14T07:00:00.000Z",
+      "end": "2024-12-14T09:00:00.000Z"
+    },
+    "motionDetected": false
+  }
+]

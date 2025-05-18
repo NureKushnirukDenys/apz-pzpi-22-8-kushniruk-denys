@@ -1,0 +1,18 @@
+[
+  {
+    "_id": "6762eeb60ce0c549542bfd82",
+    "user_id": "60d0fe4f5311236168a109ca",
+    "name": "Кімната 2",
+    "status": true,
+    "iotDeviceId": "iot12345",
+    "distance": 194.02
+  },
+  {
+    "_id": "6762eeb60ce0c549542bfd84",
+    "user_id": "6762eeb50ce0c549542bfd7d",
+    "name": "Спальня",
+    "status": false,
+    "iotDeviceId": "iot67890",
+    "distance": 313.07
+  }
+]

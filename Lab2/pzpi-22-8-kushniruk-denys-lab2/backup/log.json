@@ -1,0 +1,22 @@
+[
+  {
+    "_id": "6762eeb60ce0c549542bfd87",
+    "user_id": "6762eeb50ce0c549542bfd7d",
+    "room_id": "6762eeb60ce0c549542bfd84",
+    "action": "Вимкнено освітлення",
+    "timestamp": "2024-12-18T15:48:06.568Z",
+    "timeOn": 1800,
+    "timeOff": 3600,
+    "averageLightTime": 2700
+  },
+  {
+    "_id": "6762eeb60ce0c549542bfd86",
+    "user_id": "6762eeb50ce0c549542bfd7d",
+    "room_id": "6762eeb60ce0c549542bfd82",
+    "action": "Увімкнено освітлення",
+    "timestamp": "2024-12-18T15:48:06.568Z",
+    "timeOn": 3600,
+    "timeOff": 1800,
+    "averageLightTime": 2700
+  }
+]
