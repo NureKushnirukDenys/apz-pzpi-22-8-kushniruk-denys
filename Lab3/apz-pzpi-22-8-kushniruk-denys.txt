@@ -1,0 +1,612 @@
+Міністерство освіти і науки України
+Харківський національний університет радіоелектроніки
+Кафедра програмної інженерії
+
+
+
+
+
+Лабораторна робота № 3
+з дисципліни «Архітектура програмного забезпечення» 
+на тему «Розробка програмної архітектури, створення та відлагодження програмного коду веб-клієнта програмної системи»
+
+
+
+
+
+
+
+
+Виконав:									Перевірив:
+ст. гр. ПЗПІ-22-8								ст. викладач. 
+Кушнірук Денис 								Сокорчук І.П
+
+
+
+
+
+
+
+
+Харків 2025
+1 ІСТОРІЯ ЗМІН
+
+У цьому розділі представлено історію внесених змін до звіту, що наведено у табл. 1.
+
+Таблиця 1 – Історія змін
+№	Дата	Версія звіту	Опис змін та виправлень
+1	20.05.2025	0.1	Створено розділ «Завдання»
+2	20.05.2025	0.1	Створено розділ «Опис Виконаної роботи»
+3	20.05.2025	0.1	Створено розділ «Висновки»
+
+
+ 
+2 ЗАВДАННЯ
+
+
+2.1 Мета роботи: 
+Розробка клієнтську front-end частину програмої системи «SLC System».
+
+У межах реалізації клієнтської частини програмної системи SLC System необхідно розробити адміністративну панель, яка надає засоби управління системою та забезпечує її належне функціонування. Основними функціональними компонентами адміністративної панелі є: 
+−	Реєстрація та авторизація адміністраторів в системі; 
+−	Перегляд списку користувачів; 
+−	Пошук користувачів; 
+−	Редагування даних кімнат; 
+−	Створення нових кімнат;
+−	Видалення кімнат за потреби; 
+−	Перегляд статистики додатку;
+−	Перегляд та пошук логів; 
+−	Можливість створювати резервну копію бази даних.
+
+ 
+3 ОПИС ВИКОНАНОЇ РОБОТИ
+
+
+3.1 Аутентифікація та авторизація
+
+Реалізовано систему аутентифікації, яка зберігає токен доступу у localStorage, що дозволяє зберігати сесію користувача навіть після оновлення сторінки. Додано механізм авторизації з ролями користувачів: superadmin, admin та user. На основі ролі визначаються доступні дії та розділи інтерфейсу. Для захисту маршрутів реалізовано перевірку прав доступу перед завантаженням сторінки.
+
+3.2 Робота з даними
+
+Організовано взаємодію з бекендом через REST API. Дані завантажуються асинхронно, із відображенням стану завантаження, помилок і повідомлень. Реалізовано операції CRUD (створення, редагування, видалення) для кімнат, а також їх прив'язку до користувачів або пристроїв. Пошук і фільтрація реалізовані як на стороні клієнта, так і з параметрами до API.
+
+3.3 Локалізація (переклад)
+
+Підключено бібліотеку next-intl для міжнародної локалізації інтерфейсу. Всі текстові ресурси винесено до окремих файлів /locales/messages/en.json та /locales/messages/ua.json, що дозволяє легко додавати нові мови. Реалізовано перемикач мов, який зберігає вибір користувача для зручноcті користування.
+
+3.4 Локалізація (переклад)
+Додано панель журналу подій, яка показує:
+−	дії користувачів (редагування даних, видалення, використання додаткових функцій),
+−	зміни в кімнатах,
+−	системні помилки та збої пристроїв.
+Передбачено пошук по логам за користувачем, Id або типом події.
+На головній сторінці додано блоки, які показують:
+−	загальну кількість зареєстрованих користувачів,
+−	кількість активних кімнат,
+−	кількість збережених логів.
+Додано перегляд останніх дій — блок останніх 5 подій у системі.
+
+3.5 Додаткові функції
+
+Функція резервного копіювання (бекапу):
+−	Створено кнопку для ручного збереження резервної копії даних на сервер.
+−	Можливість зберегти JSON-файл локально.
+Розрахунок економії енергії:
+−	Реалізовано формулу розрахунку економії електроенергії для кожної кімнати.
+−	Потужність визначається на основі активності освітлення та заданих характеристик ламп.
+−	Вивід у вигляді відсотка, який можна використовувати для аналітики в інтерфейсі.
+
+ 
+4 ВИСНОВКИ 
+
+
+У ході виконання лабораторної роботи було реалізовано базову версію веб-інтерфейсу адміністративної панелі системи SLC System. Основна увага була зосереджена на забезпеченні функціонального, безпечного та зручного інтерфейсу для адміністраторів системи.  Реалізовано повноцінну аутентифікацію та авторизацію, що включає зберігання токена сесії, перевірку прав доступу та розмежування ролей користувачів (superadmin, admin, user). Забезпечено надійний контроль доступу до різних частин системи. Було організовано отримання, фільтрацію та редагування даних через REST API, реалізовано CRUD-операції для кімнат, а також функції пошуку та фільтрації для користувачів, логів і приміщень. Це дозволяє ефективно управляти об'єктами в системі. Завдяки використанню next-intl реалізовано повноцінну підтримку локалізації, включаючи перемикач мов, збереження налаштувань та окремі файли перекладів для української та англійської мов. Важливою частиною функціоналу стала система логування дій користувачів та модуль статистики, який надає актуальну інформацію про кількість користувачів, кімнат та змін у системі. Також було додано функцію створення резервної копії даних та реалізовано розрахунок економії електроенергії, що підвищує практичну цінність системи як для домашніх, так і для комерційних користувачів.
+
+ 
+ДОДАТОК А
+Відеозапис
+
+Відеозапис презентації результатів лабораторної роботи:  
+Хронологічний опис відеозапису: https://youtu.be/PhUotywgw4I 
+00:00 - Вступ 
+00:17 - Реєстрація 
+00:50 - Перевірка БД 
+01:02 - Авторизація 
+01:11 - Головна сторінка 
+01:28 - Створення резервної копії 
+01:47 - Керування користувачами 
+02:36 - Керування кімнатами 
+03:02 - Перевірка БД 
+02:36 - Зміна даних кімнати 
+03:42 - Бізнеслогіка 
+04:27 - Логи системи
+
+
+ 
+ДОДАТОК Б
+Графічні матеріали
+
+ 
+Рисунок Б.1 – UML діаграма прецедентів
+
+ 
+Рисунок Б.2 — UML-діаграма компонентів
+
+ 
+Рисунок Б.3 – UML-діаграма станів
+
+ 
+Рисунок Б.4 – UML діаграма діяльності
+
+ 
+ДОДАТОК В 
+Програмний код
+
+В.1 Реєстрація
+GitHub репозиторій: https://github.com/NureKushnirukDenys/apz-pzpi-22-8-kushniruk-denys/blob/main/Lab3/pzpi-22-8-kushniruk-denys-lab3/app/%5Blocale%5D/(auth)/sign-up/page.jsx 
+1. "use client";
+2. 
+3. import Header from "@/components/Header";
+4. import { Link } from "@/i18n/routing";
+5. import { useTranslations } from "next-intl";
+6. import React, { useState } from "react";
+7. import { useRouter } from "next/navigation";
+8. 
+9. const DEFAULT_AVATAR =
+10.   "https://ui-avatars.com/api/?name=User&background=0D8ABC&color=fff";
+11. 
+12. const SignUp = () => {
+13.   const t = useTranslations("SingUp");
+14.   const router = useRouter();
+15.   const [form, setForm] = useState({
+16.     email: "",
+17.     password: "",
+18.     confirmPassword: "",
+19.     firstName: "",
+20.     lastName: "",
+21.   });
+22.   const [error, setError] = useState("");
+23.   const [success, setSuccess] = useState("");
+24. 
+25.   const handleChange = (e) => {
+26.     setForm({ ...form, [e.target.id]: e.target.value });
+27.   };
+28. 
+29.   const handleSubmit = async (e) => {
+30.     e.preventDefault();
+31.     setError("");
+32.     setSuccess("");
+33.     if (form.password !== form.confirmPassword) {
+34.       setError("Паролі не співпадають");
+35.       return;
+36.     }
+37.     try {
+38.       const res = await fetch("/api/auth/register", {
+39.         method: "POST",
+40.         headers: { "Content-Type": "application/json" },
+41.         body: JSON.stringify({
+42.           email: form.email,
+43.           password: form.password,
+44.           role: "user",
+45.           firstName: form.firstName,
+46.           lastName: form.lastName,
+47.           profileImage: DEFAULT_AVATAR,
+48.         }),
+49.       });
+50.       const data = await res.json();
+51.       if (!res.ok) throw new Error(data.message || "Помилка реєстрації");
+52.       localStorage.setItem("user", JSON.stringify(data.user));
+53.       setSuccess("Реєстрація успішна! Зараз ви будете перенаправлені...");
+54.       setTimeout(() => {
+55.         router.push("/");
+56.       }, 1000); // редірект через 1 секунди
+57.     } catch (err) {
+58.       setError(err.message);
+59.     }
+60.   };
+61. 
+62.   return (
+63.     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-200 dark:from-[#0e0e0e] dark:to-[#232a36] flex flex-col">
+64.       <Header />
+65.       <div className="flex flex-1 items-center justify-center">
+66.         <form
+67.           onSubmit={handleSubmit}
+68.           className="bg-white dark:bg-[#1f293b] rounded-lg shadow-lg p-8 w-full max-w-sm space-y-6"
+69.         >
+70.           <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white mb-4">
+71.             {t("title")}
+72.           </h2>
+73.           {error && <div className="text-red-500 text-center">{error}</div>}
+74.           {success && (
+75.             <div className="text-green-500 text-center">{success}</div>
+76.           )}
+77.           <div>
+78.             <label
+79.               className="block text-gray-700 dark:text-gray-300 mb-1"
+80.               htmlFor="email"
+81.             >
+82.               Email
+83.             </label>
+84.             <input
+85.               id="email"
+86.               type="email"
+87.               autoComplete="email"
+88.               required
+89.               value={form.email}
+90.               onChange={handleChange}
+91.               className="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-[#181c24] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+92.               placeholder="Email"
+93.             />
+94.           </div>
+95.           <div>
+96.             <label
+97.               className="block text-gray-700 dark:text-gray-300 mb-1"
+98.               htmlFor="firstName"
+99.             >
+100.               {t("firstName")}
+101.             </label>
+102.             <input
+103.               id="firstName"
+104.               type="text"
+105.               required
+106.               value={form.firstName}
+107.               onChange={handleChange}
+108.               className="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-[#181c24] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+109.               placeholder={t("firstName")}
+110.             />
+111.           </div>
+112.           <div>
+113.             <label
+114.               className="block text-gray-700 dark:text-gray-300 mb-1"
+115.               htmlFor="lastName"
+116.             >
+117.               {t("lastName")}
+118.             </label>
+119.             <input
+120.               id="lastName"
+121.               type="text"
+122.               required
+123.               value={form.lastName}
+124.               onChange={handleChange}
+125.               className="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-[#181c24] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+126.               placeholder={t("lastName")}
+127.             />
+128.           </div>
+129.           <div>
+130.             <label
+131.               className="block text-gray-700 dark:text-gray-300 mb-1"
+132.               htmlFor="password"
+133.             >
+134.               {t("password")}
+135.             </label>
+136.             <input
+137.               id="password"
+138.               type="password"
+139.               autoComplete="new-password"
+140.               required
+141.               value={form.password}
+142.               onChange={handleChange}
+143.               className="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-[#181c24] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+144.               placeholder={t("password")}
+145.             />
+146.           </div>
+147.           <div>
+148.             <label
+149.               className="block text-gray-700 dark:text-gray-300 mb-1"
+150.               htmlFor="confirmPassword"
+151.             >
+152.               {t("confirmPassword")}
+153.             </label>
+154.             <input
+155.               id="confirmPassword"
+156.               type="password"
+157.               autoComplete="new-password"
+158.               required
+159.               value={form.confirmPassword}
+160.               onChange={handleChange}
+161.               className="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-[#181c24] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+162.               placeholder={t("confirmPassword")}
+163.             />
+164.           </div>
+165.           <button
+166.             type="submit"
+167.             className="w-full py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-semibold transition"
+168.           >
+169.             {t("title")}
+170.           </button>
+171.           <div className="text-center text-sm text-gray-500 dark:text-gray-400">
+172.             {t("haveAccount")}
+173.             <Link
+174.               href="/sign-in"
+175.               className="text-blue-600 hover:underline ml-2"
+176.             >
+177.               {t("signIn")}
+178.             </Link>
+179.           </div>
+180.         </form>
+181.       </div>
+182.     </div>
+183.   );
+184. };
+185. 
+186. export default SignUp;
+187.
+
+В.2 Авторизація
+GitHub репозиторій: https://github.com/NureKushnirukDenys/apz-pzpi-22-8-kushniruk-denys/blob/main/Lab3/pzpi-22-8-kushniruk-denys-lab3/app/%5Blocale%5D/(auth)/sign-in/page.jsx 
+1. "use client";
+2. 
+3. import { useRouter } from "next/navigation";
+4. import Header from "@/components/Header";
+5. import { Link } from "@/i18n/routing";
+6. import { useTranslations } from "next-intl";
+7. import React, { useState } from "react";
+8. 
+9. const SignIn = () => {
+10.   const t = useTranslations("SingIn");
+11.   const router = useRouter();
+12.   const [form, setForm] = useState({ email: "", password: "" });
+13.   const [error, setError] = useState("");
+14.   const [success, setSuccess] = useState("");
+15. 
+16.   const handleChange = (e) => {
+17.     setForm({ ...form, [e.target.id]: e.target.value });
+18.   };
+19. 
+20.   const handleSubmit = async (e) => {
+21.     e.preventDefault();
+22.     setError("");
+23.     setSuccess("");
+24.     try {
+25.       const res = await fetch("/api/auth/login", {
+26.         method: "POST",
+27.         headers: { "Content-Type": "application/json" },
+28.         body: JSON.stringify({
+29.           email: form.email,
+30.           password: form.password,
+31.         }),
+32.       });
+33.       const data = await res.json();
+34.       if (!res.ok) throw new Error(data.message || "Помилка входу");
+35.       localStorage.setItem("user", JSON.stringify(data.user));
+36.       router.push("/"); // редірект на головну
+37.       setSuccess("Вхід успішний!");
+38.     } catch (err) {
+39.       setError(err.message);
+40.     }
+41.   };
+42. 
+43.   return (
+44.     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-200 dark:from-[#0e0e0e] dark:to-[#232a36] flex flex-col">
+45.       <Header />
+46.       <div className="flex flex-1 items-center justify-center">
+47.         <form
+48.           onSubmit={handleSubmit}
+49.           className="bg-white dark:bg-[#1f293b] rounded-lg shadow-lg p-8 w-full max-w-sm space-y-6"
+50.         >
+51.           <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white mb-4">
+52.             {t("title")}
+53.           </h2>
+54.           {error && <div className="text-red-500 text-center">{error}</div>}
+55.           {success && (
+56.             <div className="text-green-500 text-center">{success}</div>
+57.           )}
+58.           <div>
+59.             <label
+60.               className="block text-gray-700 dark:text-gray-300 mb-1"
+61.               htmlFor="email"
+62.             >
+63.               Email
+64.             </label>
+65.             <input
+66.               id="email"
+67.               type="email"
+68.               autoComplete="email"
+69.               required
+70.               value={form.email}
+71.               onChange={handleChange}
+72.               className="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-[#181c24] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+73.               placeholder="Email"
+74.             />
+75.           </div>
+76.           <div>
+77.             <label
+78.               className="block text-gray-700 dark:text-gray-300 mb-1"
+79.               htmlFor="password"
+80.             >
+81.               {t("password")}
+82.             </label>
+83.             <input
+84.               id="password"
+85.               type="password"
+86.               autoComplete="current-password"
+87.               required
+88.               value={form.password}
+89.               onChange={handleChange}
+90.               className="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-[#181c24] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+91.               placeholder={t("password")}
+92.             />
+93.           </div>
+94.           <button
+95.             type="submit"
+96.             className="w-full py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-semibold transition"
+97.           >
+98.             {t("title")}
+99.           </button>
+100.           <div className="text-center text-sm text-gray-500 dark:text-gray-400">
+101.             {t("noAccount")}
+102.             <Link
+103.               href="/sign-up"
+104.               className="text-blue-600 hover:underline ml-2"
+105.             >
+106.               {t("signUp")}
+107.             </Link>
+108.           </div>
+109.         </form>
+110.       </div>
+111.     </div>
+112.   );
+113. };
+114. 
+115. export default SignIn;
+116.
+
+В.3 Головна сторінка (статистика додатка)
+GitHub репозиторій: https://github.com/NureKushnirukDenys/apz-pzpi-22-8-kushniruk-denys/blob/main/Lab3/pzpi-22-8-kushniruk-denys-lab3/app/%5Blocale%5D/page.jsx 
+
+1. "use client";
+2. 
+3. import Header from "@/components/Header";
+4. import { useTranslations } from "next-intl";
+5. import { useEffect, useState } from "react";
+6. 
+7. export default function Home() {
+8.   const [user, setUser] = useState(null);
+9.   const [stats, setStats] = useState({
+10.     users: 0,
+11.     rooms: 0,
+12.     logs: 0,
+13.   });
+14.   const [backupStatus, setBackupStatus] = useState("");
+15.   const [recentLogs, setRecentLogs] = useState([]);
+16.   const t = useTranslations("Dashboard");
+17. 
+18.   useEffect(() => {
+19.     if (typeof window !== "undefined") {
+20.       const userData = localStorage.getItem("user");
+21.       if (userData && userData !== "undefined") {
+22.         try {
+23.           setUser(JSON.parse(userData));
+24.         } catch {
+25.           setUser(null);
+26.         }
+27.       }
+28.     }
+29.   }, []);
+30. 
+31.   useEffect(() => {
+32.     // Отримання статистики з бекенду
+33.     const fetchStats = async () => {
+34.       try {
+35.         // Користувачі
+36.         const usersRes = await fetch("http://localhost:5000/users");
+37.         const users = await usersRes.json();
+38. 
+39.         // Кімнати
+40.         const roomsRes = await fetch("http://localhost:5000/rooms");
+41.         const rooms = await roomsRes.json();
+42. 
+43.         // Логи
+44.         const logsRes = await fetch("http://localhost:5000/logs/info");
+45.         const logs = await logsRes.json();
+46. 
+47.         setStats({
+48.           users: Array.isArray(users) ? users.length : 0,
+49.           rooms: Array.isArray(rooms) ? rooms.length : 0,
+50.           logs: Array.isArray(logs) ? logs.length : 0,
+51.         });
+52. 
+53.         setRecentLogs(Array.isArray(logs) ? logs.slice(-5).reverse() : []);
+54.       } catch {
+55.         setStats({ users: 0, rooms: 0, logs: 0 });
+56.         setRecentLogs([]);
+57.       }
+58.     };
+59.     fetchStats();
+60.   }, []);
+61. 
+62.   const handleBackup = async () => {
+63.     setBackupStatus("Виконується бекап...");
+64.     try {
+65.       // Отримати user_id з localStorage
+66.       const userData = localStorage.getItem("user");
+67.       const user_id = userData ? JSON.parse(userData).id : null;
+68. 
+69.       const res = await fetch("http://localhost:5000/backup", {
+70.         method: "POST",
+71.         headers: { "Content-Type": "application/json" },
+72.         body: JSON.stringify({ user_id }),
+73.       });
+74.       const data = await res.json();
+75.       if (res.ok) {
+76.         setBackupStatus("Бекап виконано успішно!");
+77.       } else {
+78.         setBackupStatus("Помилка: " + (data.message || "невідома"));
+79.       }
+80.     } catch (e) {
+81.       setBackupStatus("Помилка при з'єднанні з сервером");
+82.     }
+83.     setTimeout(() => setBackupStatus(""), 4000);
+84.   };
+85. 
+86.   return (
+87.     <main>
+88.       <Header />
+89.       <div className="flex flex-col items-center justify-center min-h-screen text-white mt-[-75px]">
+90.         <div className="w-full max-w-3xl">
+91.           <div className="text-5xl text-center mb-4">{t("adminPanel")}</div>
+92.           <div className="text-xl text-center mb-8">{t("system")}</div>
+93.           {user && (
+94.             <div className="bg-[#232323] rounded-lg p-4 mb-6 text-center shadow">
+95.               <div className="text-xl font-semibold mb-1">
+96.                 {t("greeting", {
+97.                   firstName: user.firstName,
+98.                   lastName: user.lastName,
+99.                 })}
+100.               </div>
+101.               <div className="text-sm text-[#bdbdbd]">
+102.                 {t("role")} <span className="font-bold">{user.role}</span>
+103.               </div>
+104.             </div>
+105.           )}
+106.           <div className="grid grid-cols-3 gap-6 mb-6">
+107.             <div className="bg-[#232323] rounded-lg p-6 text-center shadow">
+108.               <div className="text-3xl font-bold">{stats.users}</div>
+109.               <div className="text-sm mt-2">{t("users")}</div>
+110.             </div>
+111.             <div className="bg-[#232323] rounded-lg p-6 text-center shadow">
+112.               <div className="text-3xl font-bold">{stats.rooms}</div>
+113.               <div className="text-sm mt-2">{t("rooms")}</div>
+114.             </div>
+115.             <div className="bg-[#232323] rounded-lg p-6 text-center shadow">
+116.               <div className="text-3xl font-bold">{stats.logs}</div>
+117.               <div className="text-sm mt-2">{t("logs")}</div>
+118.             </div>
+119.           </div>
+120.           <div className="bg-[#232323] rounded-lg p-6 shadow">
+121.             <div className="text-lg font-semibold mb-2">{t("lastActions")}</div>
+122.             <ul className="text-sm text-[#bdbdbd] list-disc pl-5">
+123.               {recentLogs.length === 0 ? (
+124.                 <li>{t("noActions")}</li>
+125.               ) : (
+126.                 recentLogs.map((log) => <li key={log._id}>{log.action}</li>)
+127.               )}
+128.             </ul>
+129.           </div>
+130.           <button
+131.             onClick={handleBackup}
+132.             className="w-full px-5 py-3 my-6 bg-[#232323] hover:bg-[#353535] rounded text-white font-semibold transition text-lg"
+133.           >
+134.             {t("backup")}
+135.           </button>
+136.           {backupStatus && (
+137.             <div className="mb-6 text-center text-lg text-[#bdbdbd]">
+138.               {backupStatus === "Виконується бекап..."
+139.                 ? t("backupInProgress")
+140.                 : backupStatus === "Бекап виконано успішно!"
+141.                 ? t("backupSuccess")
+142.                 : backupStatus.startsWith("Помилка:")
+143.                 ? t("backupError", {
+144.                     error: backupStatus.replace("Помилка: ", ""),
+145.                   })
+146.                 : backupStatus === "Помилка при з'єднанні з сервером"
+147.                 ? t("backupConnectionError")
+148.                 : backupStatus}
+149.             </div>
+150.           )}
+151.         </div>
+152.       </div>
+153.     </main>
+154.   );
+155. }
+156.
