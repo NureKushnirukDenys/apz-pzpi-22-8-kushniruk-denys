@@ -1,0 +1,97 @@
+{
+  "HomePage": {
+    "title": "Привіт світ!",
+    "about": "Перейти на сторінку про нас"
+  },
+  "SingIn": {
+    "title": "Вхід",
+    "password": "Пароль",
+    "noAccount": "Ще немає аккаунта?",
+    "signUp": "Зареєструватися"
+  },
+  "SingUp": {
+    "title": "Реєстрація",
+    "password": "Пароль",
+    "confirmPassword": "Підтвердіть пароль",
+    "haveAccount": "Вже маєте акаунт?",
+    "signIn": "Увійти",
+    "firstName": "Імʼя",
+    "lastName": "Прізвище"
+  },
+  "Navigation": {
+    "signInButton": "Увійти",
+    "signUpButton": "Зареєструватися",
+    "logoutButton": "Вийти",
+    "homeButton": "Головна",
+    "usersButton": "Користувачі",
+    "roomsButton": "Кімнати",
+    "logsButton": "Логи"
+  },
+  "Dashboard": {
+    "adminPanel": "Адмін панель",
+    "system": "Система управління освітленням в приміщеннях",
+    "greeting": "Вітаю, {firstName} {lastName}!",
+    "role": "Ви увійшли як",
+    "users": "Користувачів",
+    "rooms": "Кімнат",
+    "logs": "Логів",
+    "lastActions": "Останні дії",
+    "noActions": "Дій ще не було",
+    "backup": "Зробити бекап",
+    "backupInProgress": "Виконується бекап...",
+    "backupSuccess": "Бекап виконано успішно!",
+    "backupError": "Помилка: {error}",
+    "backupConnectionError": "Помилка при з'єднанні з сервером"
+  },
+  "UserManagement": {
+    "title": "Керування користувачами",
+    "searchPlaceholder": "Пошук за email, ім'ям, прізвищем або ID",
+    "loading": "Завантаження...",
+    "error": "Не вдалося отримати користувачів. Перевірте сервер і CORS.",
+    "avatar": "Аватар",
+    "email": "Email",
+    "firstName": "Ім'я",
+    "lastName": "Прізвище",
+    "role": "Роль"
+  },
+  "Rooms": {
+    "title": "Керування кімнатами",
+    "searchPlaceholder": "Пошук по кімнатах, ID, IoT, дистанції, статусу, ID автора...",
+    "deleteConfirm": "Ви дійсно хочете видалити кімнату",
+    "delete": "Видалити",
+    "cancel": "Скасувати",
+    "notFound": "Кімнат не знайдено",
+    "loading": "Завантаження...",
+    "createRoom": "Створити нову кімнату",
+    "allFieldsRequired": "Всі поля, крім дистанції та яскравості, обов'язкові",
+    "createError": "Помилка створення кімнати",
+    "roomName": "Назва кімнати",
+    "distance": "Дистанція (cм)",
+    "brightness": "Яскравість (%)",
+    "create": "Створити",
+    "creating": "Створення...",
+    "editRoom": "Редагувати кімнату",
+    "lightOn": "Світло увімкнено",
+    "lightOff": "Світло вимкнено",
+    "save": "Зберегти",
+    "saving": "Збереження...",
+    "updateError": "Помилка оновлення кімнати",
+    "status": "Статус",
+    "createdBy": "Створив (ID)",
+    "unknown": "невідомо",
+    "savingEnergy": "Економія",
+    "calculateSaving": "Розрахувати економію",
+    "calculating": "Розрахунок...",
+    "error": "Помилка"
+  },
+  "Logs": {
+    "title": "Логи",
+    "searchPlaceholder": "Пошук по логах...",
+    "loading": "Завантаження...",
+    "notFound": "Логів не знайдено",
+    "timestamp": "Час",
+    "room": "Кімната",
+    "user": "Користувач",
+    "unknown": "невідомо"
+  }
+}
