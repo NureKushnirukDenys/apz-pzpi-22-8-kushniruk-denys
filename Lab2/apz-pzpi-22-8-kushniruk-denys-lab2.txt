@@ -244,7 +244,81 @@ GitHub репозиторій: https://github.com/NureKushnirukDenys/apz-pzpi-22
 37.   "language": "Language"
 38. }
 39.
- 
+
+В.3 Адміністрування бізнес-логіки системи
+GitHub репозиторій: https://github.com/NureKushnirukDenys/apz-pzpi-22-8-kushniruk-denys/blob/main/Lab2/pzpi-22-8-kushniruk-denys-lab2/routes/light/lightRoutes.js 
+
+1. /**
+2.  * @swagger
+3.  * /lights/saving/{roomId}:
+4.  *   get:
+5.  *     summary: Розрахунок економії електроенергії для кімнати
+6.  *     description: Повертає відсоток економії електроенергії для всіх ламп у кімнаті.
+7.  *     tags: [Lights]
+8.  *     parameters:
+9.  *       - in: path
+10.  *         name: roomId
+11.  *         required: true
+12.  *         schema:
+13.  *           type: string
+14.  *         description: ID кімнати
+15.  *     responses:
+16.  *       200:
+17.  *         description: Відсоток економії електроенергії успішно розраховано.
+18.  *         content:
+19.  *           application/json:
+20.  *             schema:
+21.  *               type: object
+22.  *               properties:
+23.  *                 savingPercent:
+24.  *                   type: number
+25.  *                   description: Відсоток економії
+26.  *       500:
+27.  *         description: Помилка розрахунку економії.
+28.  */
+29. router.get("/saving/:roomId", async (req, res) => {
+30.   try {
+31.     const lights = await Light.find({ roomId: req.params.roomId });
+32.     const saving = calculateEnergySaving(lights);
+33.     res.json({ savingPercent: saving });
+34.   } catch (error) {
+35.     res.status(500).json({ message: "Помилка розрахунку економії" });
+36.   }
+37. });
+38.
+
+В.4 Резервне копіювання користувацьких даних
+GitHub репозиторій: https://github.com/NureKushnirukDenys/apz-pzpi-22-8-kushniruk-denys/blob/main/Lab2/pzpi-22-8-kushniruk-denys-lab2/backup.js 
+
+1. const mongoose = require("mongoose");
+2. const fs = require("fs");
+3. require("dotenv").config();
+4. 
+5. const uri = process.env.CONNECT_URL_MONGODB;
+6. 
+7. async function backupCollection(modelName, fileName) {
+8.   const Model = mongoose.model(
+9.     modelName,
+10.     new mongoose.Schema({}, { strict: false })
+11.   );
+12.   const data = await Model.find({});
+13.   fs.writeFileSync(fileName, JSON.stringify(data, null, 2), "utf-8");
+14.   console.log(`Колекція ${modelName} збережена у ${fileName}`);
+15. }
+16. 
+17. async function main() {
+18.   await mongoose.connect(uri);
+19. 
+20.   await backupCollection("Light", "./backup/light.json");
+21.   await backupCollection("Room", "./backup/room.json");
+22.   await backupCollection("User", "./backup/user.json");
+23.   await backupCollection("Log", "./backup/log.json");
+24. 
+25.   await mongoose.disconnect();
+26. }
+27. 
+28. main();
+29.  
 ДОДАТОК Г
 Специфікація розробленого REST API
 
@@ -422,4 +496,3 @@ DELETE /logs/delete/{logId}
 	Відповідь:
 	200: Лог успішно видалено.
 	404: Лог не знайдений.
-
