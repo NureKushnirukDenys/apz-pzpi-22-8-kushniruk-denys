@@ -1,1 +1,1119 @@
+Міністерство освіти і науки України
+Харківський національний університет радіоелектроніки
+Кафедра програмної інженерії
+
+
+
+
+
+Лабораторна робота № 4
+з дисципліни «Архітектура програмного забезпечення» 
+на тему «Розробка програмної архітектури та створення і відлагодження програмного коду програмного застосунку мобільного пристрою для програмної системи»
+
+
+
+
+
+
+
+
+Виконав:									Перевірив:
+ст. гр. ПЗПІ-22-8								ст. викладач. 
+Кушнірук Денис 								Сокорчук І.П
+
+
+
+
+
+
+
+Харків 2025
+1 ІСТОРІЯ ЗМІН
+
+У цьому розділі представлено історію внесених змін до звіту, що наведено у табл. 1.
+
+Таблиця 1 – Історія змін
+№	Дата	Версія звіту	Опис змін та виправлень
+1	27.05.2025	0.1	Створено розділ «Завдання»
+2	27.05.2025	0.1	Створено розділ «Опис Виконаної роботи»
+3	27.05.2025	0.1	Створено розділ «Висновки»
+
+
+ 
+2 ЗАВДАННЯ
+
+
+2.1 Мета роботи: 
+Потрібно розробити мобільний програмний застосунок для будь-якої поширеної на сьогодні мобільної платформи.
+
+У межах реалізації клієнтської частини програмної системи SLC System необхідно розробити мобільний додаток, який надає засоби зручного управління освітленняям. Основними функціональними компонентами додатку є: 
+−	Реєстрація та авторизація адміністраторів в системі; 
+−	Редагування даних кімнат; 
+−	Налаштовування яскравості освітлення;
+−	Керування освітленням.
+ 
+3 ОПИС ВИКОНАНОЇ РОБОТИ
+
+
+3.1 Аутентифікація та авторизація
+
+Реалізовано систему аутентифікації, яка зберігає токен доступу, що дозволяє зберігати сесію користувача навіть після оновлення. Додано механізм авторизації з ролями користувачів: superadmin, admin та user. На основі ролі визначаються доступні дії та розділи інтерфейсу. Для захисту маршрутів реалізовано перевірку прав доступу перед завантаженням сторінки.
+
+3.2 Робота з даними
+
+Організовано взаємодію з бекендом через REST API. Дані завантажуються асинхронно, із відображенням стану завантаження, помилок і повідомлень. Реалізовано операції CRUD (створення, редагування, видалення) для кімнат, а також їх прив'язку до користувачів або пристроїв. Пошук і фільтрація реалізовані як на стороні клієнта, так і з параметрами до API.
+
+3.3 Зручне керування освітленням
+
+	У мобільному додатку реалізовано простий та зручний інтерфейс для керування освітленням у приміщеннях. Головна увага була приділена швидкому доступу до основних функцій, зрозумілому розташуванню елементів і зручності взаємодії на сенсорних пристроях.
+
+ 
+4 ВИСНОВКИ 
+
+
+У ході виконання лабораторної роботи було реалізовано базову версію мобільного додатку клієнтської частини програмної системи SLC System. Основна увага була зосереджена на створенні інтерфейсу для зручного та швидкого керування освітленням у приміщеннях із мобільних пристроїв. Було реалізовано повноцінну реєстрацію та авторизацію, що дозволяє безпечно входити до системи та отримувати доступ до відповідного функціоналу згідно з роллю користувача. Користувачі мають змогу в реальному часі керувати станом освітлення в окремих приміщеннях: вмикати та вимикати світло, а також регулювати рівень яскравості через інтуїтивно зрозумілий інтерфейс. Інтерфейс додатку розроблено з урахуванням принципів адаптивності та зручності мобільної взаємодії. Усі основні дії виконуються в один-два кліки, а компоненти оптимізовані для сенсорного керування. Реалізований функціонал створює основу для повноцінної мобільної версії системи автоматичного керування освітленням, що дає змогу адміністраторам швидко реагувати на зміну умов, контролювати стан системи та персоналізувати освітлення за потребами.
+ 
+ДОДАТОК А
+Відеозапис
+
+Відеозапис презентації результатів лабораторної роботи:  https://youtu.be/UHa59qaaNKA 
+Хронологічний опис відеозапису:
+00:00 - Вступ 
+00:17 - Мобільний додаток 
+00:27 - Реєстрація 
+00:56 - Перевірка БД 
+01:10 - Авторизація 
+01:22 - Головний екран 
+01:48 - Функціонал додатку 
+02:23 - Створення нової кімнати 
+02:38 - Перевірка
+ 
+ДОДАТОК Б
+Графічні матеріали
+
+ 
+Рисунок Б.1 – UML діаграма прецедентів
+	
+ 
+Рисунок Б.2 — UML-діаграма компонентів
+ 
+Рисунок Б.3 – UML-діаграма станів
+
+ 
+Рисунок Б.4 – UML діаграма діяльності
+
+ 
+ДОДАТОК В
+Програмний код
+
+В.1 Реєстрація
+GitHub репозиторій: https://github.com/NureKushnirukDenys/apz-pzpi-22-8-kushniruk-denys/blob/main/Lab4/pzpi-22-8-kushniruk-denys-lab4/ui/screens/RegisterScreen.kt
+
+1. package com.example.slcsystem
+2. 
+3. import android.R.attr.name
+4. import androidx.compose.animation.AnimatedVisibility
+5. import androidx.compose.animation.core.tween
+6. import androidx.compose.animation.fadeIn
+7. import androidx.compose.animation.slideInVertically
+8. import androidx.compose.foundation.background
+9. import androidx.compose.foundation.layout.*
+10. import androidx.compose.foundation.shape.RoundedCornerShape
+11. import androidx.compose.foundation.text.KeyboardOptions
+12. import androidx.compose.material3.*
+13. import androidx.compose.runtime.*
+14. import androidx.compose.ui.Alignment
+15. import androidx.compose.ui.Modifier
+16. import androidx.compose.ui.draw.clip
+17. import androidx.compose.ui.draw.shadow
+18. import androidx.compose.ui.graphics.Brush
+19. import androidx.compose.ui.graphics.vector.ImageVector
+20. import androidx.compose.ui.res.vectorResource
+21. import androidx.compose.ui.text.input.KeyboardType
+22. import androidx.compose.ui.text.input.PasswordVisualTransformation
+23. import androidx.compose.ui.text.input.VisualTransformation
+24. import androidx.compose.ui.text.style.TextAlign
+25. import androidx.compose.ui.unit.dp
+26. import androidx.compose.ui.unit.sp
+27. import com.example.slcsystem.api.RegisterRequest
+28. import com.example.slcsystem.api.RetrofitClient
+29. import kotlinx.coroutines.coroutineScope
+30. import kotlinx.coroutines.launch
+31. 
+32. @Composable
+33. fun RegisterScreen(
+34.     onRegisterClick: (String, String, String) -> Unit,
+35.     onNavigateToLogin: () -> Unit,
+36.     modifier: Modifier = Modifier
+37. ) {
+38.     var firstName by remember { mutableStateOf("") }
+39.     var lastName by remember { mutableStateOf("") }
+40.     var email by remember { mutableStateOf("") }
+41.     var password by remember { mutableStateOf("") }
+42.     var confirmPassword by remember { mutableStateOf("") }
+43.     var errorMessage by remember { mutableStateOf("") }
+44.     var isPasswordVisible by remember { mutableStateOf(false) }
+45.     var isVisible by remember { mutableStateOf(false) }
+46.     var isLoading by remember { mutableStateOf(false) }
+47. 
+48.     val coroutineScope = rememberCoroutineScope()
+49. 
+50.     LaunchedEffect(Unit) {
+51.         isVisible = true
+52.     }
+53. 
+54.     Column(
+55.         modifier = modifier
+56.             .fillMaxSize()
+57.             .background(
+58.                 Brush.verticalGradient(
+59.                     colors = listOf(
+60.                         MaterialTheme.colorScheme.background,
+61.                         MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+62.                     )
+63.                 )
+64.             )
+65.             .padding(horizontal = 24.dp),
+66.         verticalArrangement = Arrangement.Center,
+67.         horizontalAlignment = Alignment.CenterHorizontally
+68.     ) {
+69.         AnimatedVisibility(
+70.             visible = isVisible,
+71.             enter = slideInVertically(initialOffsetY = { -40 }) + fadeIn(animationSpec = tween(800))
+72.         ) {
+73.             Column(
+74.                 horizontalAlignment = Alignment.CenterHorizontally
+75.             ) {
+76.                 Text(
+77.                     text = "Реєстрація",
+78.                     style = MaterialTheme.typography.headlineMedium,
+79.                     color = MaterialTheme.colorScheme.primary,
+80.                     modifier = Modifier.padding(bottom = 32.dp)
+81.                 )
+82. 
+83.                 Card(
+84.                     modifier = Modifier
+85.                         .fillMaxWidth()
+86.                         .shadow(8.dp, RoundedCornerShape(16.dp)),
+87.                     colors = CardDefaults.cardColors(
+88.                         containerColor = MaterialTheme.colorScheme.surface
+89.                     )
+90.                 ) {
+91.                     Column(
+92.                         modifier = Modifier.padding(16.dp)
+93.                     ) {
+94.                         OutlinedTextField(
+95.                             value = firstName,
+96.                             onValueChange = { firstName = it },
+97.                             label = { Text("Ім'я") },
+98.                             leadingIcon = {
+99.                                 Icon(
+100.                                     imageVector = ImageVector.vectorResource(R.drawable.ic_person),
+101.                                     contentDescription = "Name Icon",
+102.                                     tint = MaterialTheme.colorScheme.primary
+103.                                 )
+104.                             },
+105.                             modifier = Modifier
+106.                                 .fillMaxWidth()
+107.                                 .padding(bottom = 8.dp),
+108.                             shape = RoundedCornerShape(12.dp),
+109.                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+110.                             colors = TextFieldDefaults.colors(
+111.                                 focusedContainerColor = MaterialTheme.colorScheme.surface,
+112.                                 unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+113.                                 focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+114.                                 unfocusedIndicatorColor = MaterialTheme.colorScheme.outline
+115.                             )
+116.                         )
+117. 
+118.                         OutlinedTextField(
+119.                             value = lastName,
+120.                             onValueChange = { lastName = it },
+121.                             label = { Text("Прізвище") },
+122.                             leadingIcon = {
+123.                                 Icon(
+124.                                     imageVector = ImageVector.vectorResource(R.drawable.ic_person),
+125.                                     contentDescription = "Last Name Icon",
+126.                                     tint = MaterialTheme.colorScheme.primary
+127.                                 )
+128.                             },
+129.                             modifier = Modifier
+130.                                 .fillMaxWidth()
+131.                                 .padding(bottom = 8.dp),
+132.                             shape = RoundedCornerShape(12.dp),
+133.                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+134.                             colors = TextFieldDefaults.colors(
+135.                                 focusedContainerColor = MaterialTheme.colorScheme.surface,
+136.                                 unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+137.                                 focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+138.                                 unfocusedIndicatorColor = MaterialTheme.colorScheme.outline
+139.                             )
+140.                         )
+141. 
+142.                         OutlinedTextField(
+143.                             value = email,
+144.                             onValueChange = { email = it },
+145.                             label = { Text("Email") },
+146.                             leadingIcon = {
+147.                                 Icon(
+148.                                     imageVector = ImageVector.vectorResource(R.drawable.ic_email),
+149.                                     contentDescription = "Email Icon",
+150.                                     tint = MaterialTheme.colorScheme.primary
+151.                                 )
+152.                             },
+153.                             modifier = Modifier
+154.                                 .fillMaxWidth()
+155.                                 .padding(bottom = 8.dp),
+156.                             shape = RoundedCornerShape(12.dp),
+157.                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+158.                             colors = TextFieldDefaults.colors(
+159.                                 focusedContainerColor = MaterialTheme.colorScheme.surface,
+160.                                 unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+161.                                 focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+162.                                 unfocusedIndicatorColor = MaterialTheme.colorScheme.outline
+163.                             )
+164.                         )
+165. 
+166.                         OutlinedTextField(
+167.                             value = password,
+168.                             onValueChange = { password = it },
+169.                             label = { Text("Пароль") },
+170.                             leadingIcon = {
+171.                                 Icon(
+172.                                     imageVector = ImageVector.vectorResource(R.drawable.ic_lock),
+173.                                     contentDescription = "Password Icon",
+174.                                     tint = MaterialTheme.colorScheme.primary
+175.                                 )
+176.                             },
+177.                             trailingIcon = {
+178.                                 IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
+179.                                     Icon(
+180.                                         imageVector = ImageVector.vectorResource(
+181.                                             if (isPasswordVisible) R.drawable.ic_eye else R.drawable.ic_eye_off
+182.                                         ),
+183.                                         contentDescription = "Toggle Password Visibility",
+184.                                         tint = MaterialTheme.colorScheme.primary
+185.                                     )
+186.                                 }
+187.                             },
+188.                             visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+189.                             modifier = Modifier
+190.                                 .fillMaxWidth()
+191.                                 .padding(bottom = 8.dp),
+192.                             shape = RoundedCornerShape(12.dp),
+193.                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+194.                             colors = TextFieldDefaults.colors(
+195.                                 focusedContainerColor = MaterialTheme.colorScheme.surface,
+196.                                 unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+197.                                 focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+198.                                 unfocusedIndicatorColor = MaterialTheme.colorScheme.outline
+199.                             )
+200.                         )
+201. 
+202.                         OutlinedTextField(
+203.                             value = confirmPassword,
+204.                             onValueChange = { confirmPassword = it },
+205.                             label = { Text("Підтвердження пароля") },
+206.                             leadingIcon = {
+207.                                 Icon(
+208.                                     imageVector = ImageVector.vectorResource(R.drawable.ic_lock),
+209.                                     contentDescription = "Confirm Password Icon",
+210.                                     tint = MaterialTheme.colorScheme.primary
+211.                                 )
+212.                             },
+213.                             trailingIcon = {
+214.                                 IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
+215.                                     Icon(
+216.                                         imageVector = ImageVector.vectorResource(
+217.                                             if (isPasswordVisible) R.drawable.ic_eye else R.drawable.ic_eye_off
+218.                                         ),
+219.                                         contentDescription = "Toggle Password Visibility",
+220.                                         tint = MaterialTheme.colorScheme.primary
+221.                                     )
+222.                                 }
+223.                             },
+224.                             visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+225.                             modifier = Modifier
+226.                                 .fillMaxWidth()
+227.                                 .padding(bottom = 16.dp),
+228.                             shape = RoundedCornerShape(12.dp),
+229.                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+230.                             colors = TextFieldDefaults.colors(
+231.                                 focusedContainerColor = MaterialTheme.colorScheme.surface,
+232.                                 unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+233.                                 focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+234.                                 unfocusedIndicatorColor = MaterialTheme.colorScheme.outline
+235.                             )
+236.                         )
+237. 
+238.                         if (errorMessage.isNotEmpty()) {
+239.                             Text(
+240.                                 text = errorMessage,
+241.                                 color = MaterialTheme.colorScheme.error,
+242.                                 style = MaterialTheme.typography.bodySmall,
+243.                                 modifier = Modifier.padding(bottom = 16.dp)
+244.                             )
+245.                         }
+246. 
+247.                         Button(
+248.                             onClick = {
+249.                                 when {
+250.                                     firstName.isEmpty() -> errorMessage = "Введіть ім'я"
+251.                                     lastName.isEmpty() -> errorMessage = "Введіть прізвище"
+252.                                     email.isEmpty() -> errorMessage = "Введіть email"
+253.                                     password.isEmpty() -> errorMessage = "Введіть пароль"
+254.                                     confirmPassword.isEmpty() -> errorMessage = "Підтвердіть пароль"
+255.                                     !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() ->
+256.                                         errorMessage = "Невірний формат email"
+257.                                     password.length < 3 -> errorMessage = "Пароль має бути довшим за 3 символів"
+258.                                     password != confirmPassword -> errorMessage = "Паролі не співпадають"
+259.                                     else -> {
+260.                                         isLoading = true
+261.                                         coroutineScope.launch {
+262.                                             try {
+263.                                                 val response = RetrofitClient.apiService.register(
+264.                                                     RegisterRequest(firstName, lastName, email, password)
+265.                                                 )
+266.                                                 isLoading = false
+267.                                                 if (response.isSuccessful && response.body()?.token != null) {
+268.                                                     errorMessage = ""
+269.                                                     onRegisterClick(email, password, response.body()!!.token)  // тут дивись коментар нижче
+270.                                                 } else {
+271.                                                     errorMessage = response.body()?.error ?: "Помилка реєстрації"
+272.                                                 }
+273.                                             } catch (e: Exception) {
+274.                                                 isLoading = false
+275.                                                 errorMessage = "Помилка мережі: ${e.message}"
+276.                                             }
+277.                                         }
+278.                                     }
+279.                                 }
+280.                             },
+281.                             modifier = Modifier
+282.                                 .fillMaxWidth()
+283.                                 .height(56.dp)
+284.                                 .clip(RoundedCornerShape(12.dp)),
+285.                             colors = ButtonDefaults.buttonColors(
+286.                                 containerColor = MaterialTheme.colorScheme.primary
+287.                             ),
+288.                             elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp),
+289.                             enabled = !isLoading
+290.                         ) {
+291.                             if (isLoading) {
+292.                                 CircularProgressIndicator(
+293.                                     color = MaterialTheme.colorScheme.onPrimary,
+294.                                     modifier = Modifier.size(24.dp)
+295.                                 )
+296.                             } else {
+297.                                 Text(
+298.                                     text = "Зареєструватися",
+299.                                     fontSize = 18.sp,
+300.                                     color = MaterialTheme.colorScheme.onPrimary
+301.                                 )
+302.                             }
+303.                         }
+304.                     }
+305.                 }
+306. 
+307.                 Spacer(modifier = Modifier.height(24.dp))
+308. 
+309.                 TextButton(
+310.                     onClick = { onNavigateToLogin() },
+311.                     modifier = Modifier.fillMaxWidth()
+312.                 ) {
+313.                     Text(
+314.                         text = "Вже маєте акаунт? Увійдіть",
+315.                         textAlign = TextAlign.Center,
+316.                         color = MaterialTheme.colorScheme.primary
+317.                     )
+318.                 }
+319. 
+320.             }
+321.         }
+322.     }
+323. }
+
+В.2 Авторизація
+GitHub репозиторій: https://github.com/NureKushnirukDenys/apz-pzpi-22-8-kushniruk-denys/blob/main/Lab4/pzpi-22-8-kushniruk-denys-lab4/ui/screens/LoginScreen.kt
+
+1. package com.example.slcsystem
+2. 
+3. import androidx.compose.animation.AnimatedVisibility
+4. import androidx.compose.animation.core.tween
+5. import androidx.compose.animation.fadeIn
+6. import androidx.compose.animation.slideInVertically
+7. import androidx.compose.foundation.background
+8. import androidx.compose.foundation.layout.*
+9. import androidx.compose.foundation.shape.RoundedCornerShape
+10. import androidx.compose.foundation.text.KeyboardOptions
+11. import androidx.compose.material3.*
+12. import androidx.compose.runtime.*
+13. import androidx.compose.ui.Alignment
+14. import androidx.compose.ui.Modifier
+15. import androidx.compose.ui.draw.clip
+16. import androidx.compose.ui.draw.shadow
+17. import androidx.compose.ui.graphics.Brush
+18. import androidx.compose.ui.graphics.vector.ImageVector
+19. import androidx.compose.ui.res.vectorResource
+20. import androidx.compose.ui.text.input.KeyboardType
+21. import androidx.compose.ui.text.input.PasswordVisualTransformation
+22. import androidx.compose.ui.text.input.VisualTransformation
+23. import androidx.compose.ui.text.style.TextAlign
+24. import androidx.compose.ui.unit.dp
+25. import androidx.compose.ui.unit.sp
+26. import com.example.slcsystem.api.LoginRequest
+27. import com.example.slcsystem.api.RetrofitClient
+28. import kotlinx.coroutines.launch
+29. 
+30. @Composable
+31. fun LoginScreen(
+32.     onLoginClick: (String, String) -> Unit,
+33.     onNavigateToRegister: () -> Unit,
+34.     modifier: Modifier = Modifier
+35. ) {
+36.     val coroutineScope = rememberCoroutineScope()
+37.     var email by remember { mutableStateOf("") }
+38.     var password by remember { mutableStateOf("") }
+39.     var errorMessage by remember { mutableStateOf("") }
+40.     var isPasswordVisible by remember { mutableStateOf(false) }
+41.     var isVisible by remember { mutableStateOf(false) }
+42.     var isLoading by remember { mutableStateOf(false) }
+43. 
+44.     LaunchedEffect(Unit) {
+45.         isVisible = true
+46.     }
+47. 
+48.     Column(
+49.         modifier = modifier
+50.             .fillMaxSize()
+51.             .background(
+52.                 Brush.verticalGradient(
+53.                     colors = listOf(
+54.                         MaterialTheme.colorScheme.background,
+55.                         MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+56.                     )
+57.                 )
+58.             )
+59.             .padding(horizontal = 24.dp),
+60.         verticalArrangement = Arrangement.Center,
+61.         horizontalAlignment = Alignment.CenterHorizontally
+62.     ) {
+63.         AnimatedVisibility(
+64.             visible = isVisible,
+65.             enter = slideInVertically(initialOffsetY = { -40 }) + fadeIn(animationSpec = tween(800))
+66.         ) {
+67.             Column(
+68.                 horizontalAlignment = Alignment.CenterHorizontally
+69.             ) {
+70.                 Text(
+71.                     text = "Авторизація",
+72.                     style = MaterialTheme.typography.headlineMedium,
+73.                     color = MaterialTheme.colorScheme.primary,
+74.                     modifier = Modifier.padding(bottom = 32.dp)
+75.                 )
+76. 
+77.                 Card(
+78.                     modifier = Modifier
+79.                         .fillMaxWidth()
+80.                         .shadow(8.dp, RoundedCornerShape(16.dp)),
+81.                     colors = CardDefaults.cardColors(
+82.                         containerColor = MaterialTheme.colorScheme.surface
+83.                     )
+84.                 ) {
+85.                     Column(
+86.                         modifier = Modifier.padding(16.dp)
+87.                     ) {
+88.                         OutlinedTextField(
+89.                             value = email,
+90.                             onValueChange = { email = it },
+91.                             label = { Text("Email") },
+92.                             leadingIcon = {
+93.                                 Icon(
+94.                                     imageVector = ImageVector.vectorResource(R.drawable.ic_email),
+95.                                     contentDescription = "Email Icon",
+96.                                     tint = MaterialTheme.colorScheme.primary
+97.                                 )
+98.                             },
+99.                             modifier = Modifier
+100.                                 .fillMaxWidth()
+101.                                 .padding(bottom = 16.dp),
+102.                             shape = RoundedCornerShape(12.dp),
+103.                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+104.                             colors = TextFieldDefaults.colors(
+105.                                 focusedContainerColor = MaterialTheme.colorScheme.surface,
+106.                                 unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+107.                                 focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+108.                                 unfocusedIndicatorColor = MaterialTheme.colorScheme.outline
+109.                             )
+110.                         )
+111. 
+112.                         OutlinedTextField(
+113.                             value = password,
+114.                             onValueChange = { password = it },
+115.                             label = { Text("Пароль") },
+116.                             leadingIcon = {
+117.                                 Icon(
+118.                                     imageVector = ImageVector.vectorResource(R.drawable.ic_lock),
+119.                                     contentDescription = "Password Icon",
+120.                                     tint = MaterialTheme.colorScheme.primary
+121.                                 )
+122.                             },
+123.                             trailingIcon = {
+124.                                 IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
+125.                                     Icon(
+126.                                         imageVector = ImageVector.vectorResource(
+127.                                             if (isPasswordVisible) R.drawable.ic_eye else R.drawable.ic_eye_off
+128.                                         ),
+129.                                         contentDescription = "Toggle Password Visibility",
+130.                                         tint = MaterialTheme.colorScheme.primary
+131.                                     )
+132.                                 }
+133.                             },
+134.                             visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+135.                             modifier = Modifier
+136.                                 .fillMaxWidth()
+137.                                 .padding(bottom = 16.dp),
+138.                             shape = RoundedCornerShape(12.dp),
+139.                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+140.                             colors = TextFieldDefaults.colors(
+141.                                 focusedContainerColor = MaterialTheme.colorScheme.surface,
+142.                                 unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+143.                                 focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+144.                                 unfocusedIndicatorColor = MaterialTheme.colorScheme.outline
+145.                             )
+146.                         )
+147. 
+148.                         if (errorMessage.isNotEmpty()) {
+149.                             Text(
+150.                                 text = errorMessage,
+151.                                 color = MaterialTheme.colorScheme.error,
+152.                                 style = MaterialTheme.typography.bodySmall,
+153.                                 modifier = Modifier.padding(bottom = 16.dp)
+154.                             )
+155.                         }
+156. 
+157.                         Button(
+158.                             onClick = {
+159.                                 when {
+160.                                     email.isEmpty() -> errorMessage = "Введіть email"
+161.                                     password.isEmpty() -> errorMessage = "Введіть пароль"
+162.                                     !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() ->
+163.                                         errorMessage = "Невірний формат email"
+164.                                     password.length < 3 -> errorMessage = "Пароль має бути довшим за 3 символів"
+165.                                     else -> {
+166.                                         isLoading = true
+167.                                         coroutineScope.launch {
+168.                                             try {
+169.                                                 val response = RetrofitClient.apiService.login(
+170.                                                     LoginRequest(email, password)
+171.                                                 )
+172.                                                 isLoading = false
+173.                                                 if (response.isSuccessful && response.body()?.token != null) {
+174.                                                     errorMessage = ""
+175.                                                     onLoginClick(email, response.body()!!.token)
+176.                                                 } else {
+177.                                                     errorMessage = response.body()?.error ?: "Помилка авторизації"
+178.                                                 }
+179.                                             } catch (e: Exception) {
+180.                                                 isLoading = false
+181.                                                 errorMessage = "Помилка мережі: ${e.message}"
+182.                                             }
+183.                                         }
+184.                                     }
+185.                                 }
+186.                             },
+187.                             modifier = Modifier
+188.                                 .fillMaxWidth()
+189.                                 .height(56.dp)
+190.                                 .clip(RoundedCornerShape(12.dp)),
+191.                             colors = ButtonDefaults.buttonColors(
+192.                                 containerColor = MaterialTheme.colorScheme.primary
+193.                             ),
+194.                             elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp),
+195.                             enabled = !isLoading
+196.                         ) {
+197.                             if (isLoading) {
+198.                                 CircularProgressIndicator(
+199.                                     color = MaterialTheme.colorScheme.onPrimary,
+200.                                     modifier = Modifier.size(24.dp)
+201.                                 )
+202.                             } else {
+203.                                 Text(
+204.                                     text = "Увійти",
+205.                                     fontSize = 18.sp,
+206.                                     color = MaterialTheme.colorScheme.onPrimary
+207.                                 )
+208.                             }
+209.                         }
+210.                     }
+211.                 }
+212. 
+213.                 Spacer(modifier = Modifier.height(24.dp))
+214. 
+215.                 TextButton(
+216.                     onClick = { onNavigateToRegister() },
+217.                     modifier = Modifier.fillMaxWidth()
+218.                 ) {
+219.                     Text(
+220.                         text = "Немає акаунта? Зареєструватися",
+221.                         color = MaterialTheme.colorScheme.primary,
+222.                         style = MaterialTheme.typography.bodyLarge,
+223.                         textAlign = TextAlign.Center
+224.                     )
+225.                 }
+226.             }
+227.         }
+228.     }
+229. }
+
+В.3 Головна сторінка (перелік кімнат)
+GitHub репозиторій: https://github.com/NureKushnirukDenys/apz-pzpi-22-8-kushniruk-denys/blob/main/Lab4/pzpi-22-8-kushniruk-denys-lab4/ui/screens/HomeScreen.kt
+
+1. package com.example.slcsystem.ui.screens
+2. 
+3. import androidx.compose.foundation.background
+4. import androidx.compose.foundation.clickable
+5. import androidx.compose.foundation.layout.*
+6. import androidx.compose.foundation.lazy.LazyColumn
+7. import androidx.compose.foundation.lazy.items
+8. import androidx.compose.foundation.shape.RoundedCornerShape
+9. import androidx.compose.material3.*
+10. import androidx.compose.runtime.*
+11. import androidx.compose.ui.Alignment
+12. import androidx.compose.ui.Modifier
+13. import androidx.compose.ui.draw.clip
+14. import androidx.compose.ui.draw.shadow
+15. import androidx.compose.ui.graphics.Brush
+16. import androidx.compose.ui.graphics.Color
+17. import androidx.compose.ui.text.style.TextAlign
+18. import androidx.compose.ui.unit.dp
+19. import androidx.compose.ui.unit.sp
+20. import androidx.lifecycle.viewmodel.compose.viewModel
+21. import com.example.slcsystem.api.Room
+22. import com.example.slcsystem.viewmodel.HomeViewModel
+23. 
+24. @Composable
+25. fun HomeScreen(
+26.     onLogoutClick: () -> Unit,
+27.     onRoomClick: (String) -> Unit,
+28.     modifier: Modifier = Modifier,
+29.     viewModel: HomeViewModel = viewModel()
+30. ) {
+31.     val roomsState by viewModel.roomsState.collectAsState()
+32. 
+33.     LaunchedEffect(Unit) {
+34.         viewModel.loadRooms()
+35.     }
+36. 
+37.     Column(
+38.         modifier = modifier
+39.             .fillMaxSize()
+40.             .background(
+41.                 Brush.verticalGradient(
+42.                     colors = listOf(
+43.                         MaterialTheme.colorScheme.background,
+44.                         MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+45.                     )
+46.                 )
+47.             )
+48.             .padding(16.dp),
+49.         horizontalAlignment = Alignment.CenterHorizontally
+50.     ) {
+51.         Text(
+52.             text = "Ласкаво просимо!",
+53.             fontSize = 24.sp,
+54.             color = MaterialTheme.colorScheme.primary,
+55.             modifier = Modifier.padding(bottom = 16.dp)
+56.         )
+57. 
+58.         when {
+59.             roomsState.isLoading -> {
+60.                 CircularProgressIndicator(
+61.                     color = MaterialTheme.colorScheme.primary,
+62.                     modifier = Modifier.size(48.dp)
+63.                 )
+64.             }
+65.             roomsState.error != null -> {
+66.                 Text(
+67.                     text = roomsState.error!!,
+68.                     color = MaterialTheme.colorScheme.error,
+69.                     style = MaterialTheme.typography.bodyMedium,
+70.                     textAlign = TextAlign.Center,
+71.                     modifier = Modifier.padding(16.dp)
+72.                 )
+73.             }
+74.             roomsState.rooms.isEmpty() -> {
+75.                 Text(
+76.                     text = "Кімнати відсутні",
+77.                     style = MaterialTheme.typography.bodyLarge,
+78.                     color = MaterialTheme.colorScheme.onSurface,
+79.                     textAlign = TextAlign.Center,
+80.                     modifier = Modifier.padding(16.dp)
+81.                 )
+82.             }
+83.             else -> {
+84.                 LazyColumn(
+85.                     verticalArrangement = Arrangement.spacedBy(12.dp),
+86.                     modifier = Modifier.weight(1f)
+87.                 ) {
+88.                     items(roomsState.rooms) { room ->
+89.                         RoomCard(
+90.                             room = room,
+91.                             onClick = { room._id?.let { onRoomClick(it) } }
+92.                         )
+93.                     }
+94.                 }
+95.             }
+96.         }
+97. 
+98.         Spacer(modifier = Modifier.height(16.dp))
+99. 
+100.         Button(
+101.             onClick = { onLogoutClick() },
+102.             modifier = Modifier
+103.                 .fillMaxWidth()
+104.                 .height(56.dp)
+105.                 .clip(RoundedCornerShape(12.dp)),
+106.             colors = ButtonDefaults.buttonColors(
+107.                 containerColor = MaterialTheme.colorScheme.primary
+108.             )
+109.         ) {
+110.             Text(
+111.                 text = "Вийти",
+112.                 fontSize = 18.sp,
+113.                 color = MaterialTheme.colorScheme.onPrimary
+114.             )
+115.         }
+116.     }
+117. }
+118. 
+119. @Composable
+120. fun RoomCard(room: Room, onClick: () -> Unit) {
+121.     Card(
+122.         modifier = Modifier
+123.             .fillMaxWidth()
+124.             .shadow(8.dp, RoundedCornerShape(16.dp))
+125.             .clickable { onClick() },
+126.         colors = CardDefaults.cardColors(
+127.             containerColor = MaterialTheme.colorScheme.surface
+128.         )
+129.     ) {
+130.         Column(
+131.             modifier = Modifier
+132.                 .fillMaxWidth()
+133.                 .padding(16.dp)
+134.         ) {
+135.             Text(
+136.                 text = room.name,
+137.                 style = MaterialTheme.typography.titleMedium,
+138.                 color = MaterialTheme.colorScheme.primary,
+139.                 modifier = Modifier.padding(bottom = 8.dp)
+140.             )
+141.             Text(
+142.                 text = "Статус: ${if (room.status) "Увімкнено" else "Вимкнено"}",
+143.                 style = MaterialTheme.typography.bodyMedium,
+144.                 color = if (room.status) Color(0xFF4CAF50) else Color(0xFFF44336), // Зелений для увімкнено, червоний для вимкнено
+145.                 modifier = Modifier.padding(bottom = 4.dp)
+146.             )
+147.             Text(
+148.                 text = "IoT Пристрій: ${room.iotDeviceId}",
+149.                 style = MaterialTheme.typography.bodyMedium,
+150.                 color = MaterialTheme.colorScheme.onSurface
+151.             )
+152.             Text(
+153.                 text = "Відстань: ${room.distance} см",
+154.                 style = MaterialTheme.typography.bodyMedium,
+155.                 color = MaterialTheme.colorScheme.onSurface
+156.             )
+157.             Text(
+158.                 text = "Яскравість: ${room.brightness}%",
+159.                 style = MaterialTheme.typography.bodyMedium,
+160.                 color = MaterialTheme.colorScheme.onSurface
+161.             )
+162.         }
+163.     }
+164. }
+
+В.4 Налаштування кімнати
+GitHub репозиторій: https://github.com/NureKushnirukDenys/apz-pzpi-22-8-kushniruk-denys/blob/main/Lab4/pzpi-22-8-kushniruk-denys-lab4/ui/screens/RoomDetailScreen.kt
+
+1. package com.example.slcsystem.ui.screens
+2. 
+3. import androidx.compose.foundation.background
+4. import androidx.compose.foundation.layout.*
+5. import androidx.compose.foundation.shape.RoundedCornerShape
+6. import androidx.compose.material3.*
+7. import androidx.compose.runtime.*
+8. import androidx.compose.ui.Alignment
+9. import androidx.compose.ui.Modifier
+10. import androidx.compose.ui.draw.clip
+11. import androidx.compose.ui.draw.shadow
+12. import androidx.compose.ui.graphics.Brush
+13. import androidx.compose.ui.graphics.Color
+14. import androidx.compose.ui.text.style.TextAlign
+15. import androidx.compose.ui.unit.dp
+16. import androidx.compose.ui.unit.sp
+17. import androidx.lifecycle.ViewModel
+18. import androidx.lifecycle.viewModelScope
+19. import androidx.lifecycle.viewmodel.compose.viewModel
+20. import com.example.slcsystem.api.RetrofitClient
+21. import com.example.slcsystem.api.Room
+22. import com.example.slcsystem.api.UpdateRoomRequest
+23. import kotlinx.coroutines.flow.MutableStateFlow
+24. import kotlinx.coroutines.flow.StateFlow
+25. import kotlinx.coroutines.flow.asStateFlow
+26. import kotlinx.coroutines.launch
+27. import com.example.slcsystem.api.UpdateRoomStatusRequest
+28. import kotlin.math.roundToInt
+29. 
+30. @Composable
+31. fun RoomDetailScreen(
+32.     roomId: String,
+33.     onBackClick: () -> Unit,
+34.     modifier: Modifier = Modifier,
+35.     viewModel: RoomDetailViewModel = viewModel()
+36. ) {
+37.     val roomState by viewModel.roomState.collectAsState()
+38. 
+39.     LaunchedEffect(roomId) {
+40.         viewModel.loadRoom(roomId)
+41.     }
+42. 
+43.     Column(
+44.         modifier = modifier
+45.             .fillMaxSize()
+46.             .background(
+47.                 Brush.verticalGradient(
+48.                     colors = listOf(
+49.                         MaterialTheme.colorScheme.background,
+50.                         MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+51.                     )
+52.                 )
+53.             )
+54.             .padding(16.dp),
+55.         horizontalAlignment = Alignment.CenterHorizontally
+56.     ) {
+57.         Text(
+58.             text = "Деталі кімнати",
+59.             fontSize = 24.sp,
+60.             color = MaterialTheme.colorScheme.primary,
+61.             modifier = Modifier.padding(bottom = 16.dp)
+62.         )
+63. 
+64.         when {
+65.             roomState.isLoading -> {
+66.                 CircularProgressIndicator(
+67.                     color = MaterialTheme.colorScheme.primary,
+68.                     modifier = Modifier.size(48.dp)
+69.                 )
+70.             }
+71.             roomState.error != null -> {
+72.                 Text(
+73.                     text = roomState.error!!,
+74.                     color = MaterialTheme.colorScheme.error,
+75.                     style = MaterialTheme.typography.bodyMedium,
+76.                     textAlign = TextAlign.Center,
+77.                     modifier = Modifier.padding(16.dp)
+78.                 )
+79.                 Button(
+80.                     onClick = { viewModel.loadRoom(roomId) },
+81.                     modifier = Modifier
+82.                         .fillMaxWidth()
+83.                         .height(56.dp)
+84.                         .clip(RoundedCornerShape(12.dp))
+85.                 ) {
+86.                     Text("Повторити", fontSize = 18.sp)
+87.                 }
+88.             }
+89.             roomState.room != null -> {
+90.                 RoomDetailCard(
+91.                     room = roomState.room!!,
+92.                     onStatusChange = { newStatus ->
+93.                         viewModel.updateRoomStatus(roomId, newStatus)
+94.                     },
+95.                     onBrightnessChange = { newBrightness ->
+96.                         viewModel.updateRoomBrightness(roomId, newBrightness)
+97.                     }
+98.                 )
+99.             }
+100.         }
+101. 
+102.         Spacer(modifier = Modifier.height(16.dp))
+103. 
+104.         Button(
+105.             onClick = { onBackClick() },
+106.             modifier = Modifier
+107.                 .fillMaxWidth()
+108.                 .height(56.dp)
+109.                 .clip(RoundedCornerShape(12.dp)),
+110.             colors = ButtonDefaults.buttonColors(
+111.                 containerColor = MaterialTheme.colorScheme.primary
+112.             )
+113.         ) {
+114.             Text(
+115.                 text = "Назад",
+116.                 fontSize = 18.sp,
+117.                 color = MaterialTheme.colorScheme.onPrimary
+118.             )
+119.         }
+120.     }
+121. }
+122. 
+123. @Composable
+124. fun RoomDetailCard(
+125.     room: Room,
+126.     onStatusChange: (Boolean) -> Unit,
+127.     onBrightnessChange: (Float) -> Unit
+128. ) {
+129.     Card(
+130.         modifier = Modifier
+131.             .fillMaxWidth()
+132.             .shadow(8.dp, RoundedCornerShape(16.dp)),
+133.         colors = CardDefaults.cardColors(
+134.             containerColor = MaterialTheme.colorScheme.surface
+135.         )
+136.     ) {
+137.         Column(
+138.             modifier = Modifier
+139.                 .fillMaxWidth()
+140.                 .padding(16.dp)
+141.         ) {
+142.             Text(
+143.                 text = room.name,
+144.                 style = MaterialTheme.typography.headlineSmall,
+145.                 color = MaterialTheme.colorScheme.primary,
+146.                 modifier = Modifier.padding(bottom = 8.dp)
+147.             )
+148.             Row(
+149.                 verticalAlignment = Alignment.CenterVertically,
+150.                 modifier = Modifier.padding(bottom = 4.dp)
+151.             ) {
+152.                 Text(
+153.                     text = "Статус: ${if (room.status) "Увімкнено" else "Вимкнено"}",
+154.                     style = MaterialTheme.typography.bodyLarge,
+155.                     color = if (room.status) Color(0xFF4CAF50) else Color(0xFFF44336),
+156.                     modifier = Modifier.weight(1f)
+157.                 )
+158.                 Switch(
+159.                     checked = room.status,
+160.                     onCheckedChange = { onStatusChange(it) },
+161.                     colors = SwitchDefaults.colors(
+162.                         checkedThumbColor = MaterialTheme.colorScheme.primary,
+163.                         checkedTrackColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f),
+164.                         uncheckedThumbColor = MaterialTheme.colorScheme.onSurface,
+165.                         uncheckedTrackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+166.                     )
+167.                 )
+168.             }
+169.             Column(
+170.                 modifier = Modifier.padding(bottom = 4.dp)
+171.             ) {
+172.                 Text(
+173.                     text = "Яскравість: ${room.brightness.roundToInt()}%",
+174.                     style = MaterialTheme.typography.bodyLarge,
+175.                     color = MaterialTheme.colorScheme.onSurface
+176.                 )
+177.                 Slider(
+178.                     value = room.brightness,
+179.                     onValueChange = { onBrightnessChange(it) },
+180.                     valueRange = 0f..100f,
+181.                     steps = 99, // Для плавного руху (0–100)
+182.                     modifier = Modifier.fillMaxWidth(),
+183.                     colors = SliderDefaults.colors(
+184.                         thumbColor = MaterialTheme.colorScheme.primary,
+185.                         activeTrackColor = MaterialTheme.colorScheme.primary,
+186.                         inactiveTrackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+187.                     )
+188.                 )
+189.             }
+190.             Text(
+191.                 text = "IoT Пристрій: ${room.iotDeviceId}",
+192.                 style = MaterialTheme.typography.bodyLarge,
+193.                 color = MaterialTheme.colorScheme.onSurface
+194.             )
+195.             Text(
+196.                 text = "Відстань: ${room.distance} см",
+197.                 style = MaterialTheme.typography.bodyLarge,
+198.                 color = MaterialTheme.colorScheme.onSurface
+199.             )
+200.         }
+201.     }
+202. }
+203. 
+204. class RoomDetailViewModel : ViewModel() {
+205.     private val _roomState = MutableStateFlow(RoomState())
+206.     val roomState: StateFlow<RoomState> = _roomState.asStateFlow()
+207. 
+208.     fun loadRoom(roomId: String) {
+209.         viewModelScope.launch {
+210.             _roomState.value = RoomState(isLoading = true)
+211.             try {
+212.                 val response = RetrofitClient.apiService.getRoomById(roomId)
+213.                 if (response.isSuccessful && response.body() != null) {
+214.                     _roomState.value = RoomState(room = response.body()!!)
+215.                 } else {
+216.                     _roomState.value = RoomState(error = "Кімната не знайдена")
+217.                 }
+218.             } catch (e: Exception) {
+219.                 _roomState.value = RoomState(error = "Помилка мережі: ${e.message}")
+220.             }
+221.         }
+222.     }
+223. 
+224.     fun updateRoomStatus(roomId: String, status: Boolean) {
+225.         viewModelScope.launch {
+226.             try {
+227.                 val response = RetrofitClient.apiService.updateRoomStatus(
+228.                     roomId,
+229.                     UpdateRoomStatusRequest(status)
+230.                 )
+231.                 if (response.isSuccessful && response.body() != null) {
+232.                     _roomState.value = _roomState.value.copy(
+233.                         room = response.body()!!.room,
+234.                         error = null
+235.                     )
+236.                 } else {
+237.                     _roomState.value = _roomState.value.copy(
+238.                         error = "Не вдалося оновити статус"
+239.                     )
+240.                 }
+241.             } catch (e: Exception) {
+242.                 _roomState.value = _roomState.value.copy(
+243.                     error = "Помилка мережі: ${e.message}"
+244.                 )
+245.             }
+246.         }
+247.     }
+248. 
+249.     fun updateRoomBrightness(roomId: String, brightness: Float) {
+250.         viewModelScope.launch {
+251.             try {
+252.                 val response = RetrofitClient.apiService.updateRoom(
+253.                     roomId,
+254.                     UpdateRoomRequest(brightness = brightness)
+255.                 )
+256.                 if (response.isSuccessful && response.body() != null) {
+257.                     _roomState.value = _roomState.value.copy(
+258.                         room = response.body()!!.room,
+259.                         error = null
+260.                     )
+261.                 } else {
+262.                     _roomState.value = _roomState.value.copy(
+263.                         error = "Не вдалося оновити яскравість"
+264.                     )
+265.                 }
+266.             } catch (e: Exception) {
+267.                 _roomState.value = _roomState.value.copy(
+268.                     error = "Помилка мережі: ${e.message}"
+269.                 )
+270.             }
+271.         }
+272.     }
+273. }
+274. 
+275. data class RoomState(
+276.     val room: Room? = null,
+277.     val isLoading: Boolean = false,
+278.     val error: String? = null
+279. )	
 
