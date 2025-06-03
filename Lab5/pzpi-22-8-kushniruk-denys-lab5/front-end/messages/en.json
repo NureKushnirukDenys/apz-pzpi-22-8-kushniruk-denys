@@ -1,0 +1,97 @@
+{
+  "HomePage": {
+    "title": "Hello world!",
+    "about": "Go to the about page"
+  },
+  "SingIn": {
+    "title": "Sing-In",
+    "password": "Password",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign-Up"
+  },
+  "SingUp": {
+    "title": "Sing-Up",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "haveAccount": "Already have an account?",
+    "signIn": "Sign-In",
+    "firstName": "First Name",
+    "lastName": "Last Name"
+  },
+  "Navigation": {
+    "signInButton": "Sing-In",
+    "signUpButton": "Sing-Up",
+    "logoutButton": "Log Out",
+    "homeButton": "Home",
+    "usersButton": "Users",
+    "roomsButton": "Rooms",
+    "logsButton": "Logs"
+  },
+  "Dashboard": {
+    "adminPanel": "Admin panel",
+    "system": "Lighting management system",
+    "greeting": "Welcome, {firstName} {lastName}!",
+    "role": "You are logged in as",
+    "users": "Users",
+    "rooms": "Rooms",
+    "logs": "Logs",
+    "lastActions": "Recent actions",
+    "noActions": "No actions yet",
+    "backup": "Backup",
+    "backupInProgress": "Backup in progress...",
+    "backupSuccess": "Backup completed successfully!",
+    "backupError": "Error: {error}",
+    "backupConnectionError": "Connection error"
+  },
+  "UserManagement": {
+    "title": "User management",
+    "searchPlaceholder": "Search by email, first name, last name or ID",
+    "loading": "Loading...",
+    "error": "Failed to fetch users. Check server and CORS.",
+    "avatar": "Avatar",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "role": "Role"
+  },
+  "Rooms": {
+    "title": "Room management",
+    "searchPlaceholder": "Search by room, ID, IoT, distance, status, author ID...",
+    "deleteConfirm": "Are you sure you want to delete the room",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "notFound": "No rooms found",
+    "loading": "Loading...",
+    "createRoom": "Create new room",
+    "allFieldsRequired": "All fields except distance and brightness are required",
+    "createError": "Room creation error",
+    "roomName": "Room name",
+    "distance": "Distance (cm)",
+    "brightness": "Brightness (%)",
+    "create": "Create",
+    "creating": "Creating...",
+    "editRoom": "Edit room",
+    "lightOn": "Light is ON",
+    "lightOff": "Light is OFF",
+    "save": "Save",
+    "saving": "Saving...",
+    "updateError": "Room update error",
+    "status": "Status",
+    "createdBy": "Created by (ID)",
+    "unknown": "unknown",
+    "savingEnergy": "Saving",
+    "calculateSaving": "Calculate saving",
+    "calculating": "Calculating...",
+    "error": "Error"
+  },
+  "Logs": {
+    "title": "Logs",
+    "searchPlaceholder": "Search logs...",
+    "loading": "Loading...",
+    "notFound": "No logs found",
+    "timestamp": "Timestamp",
+    "room": "Room",
+    "user": "User",
+    "unknown": "unknown"
+  }
+}

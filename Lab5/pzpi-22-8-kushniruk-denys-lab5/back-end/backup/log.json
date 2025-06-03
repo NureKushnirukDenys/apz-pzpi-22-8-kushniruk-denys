@@ -1,0 +1,79 @@
+[
+  {
+    "_id": "682f00a62428fef73868b4e6",
+    "user_id": "682caab3e0815cbfa43169ca",
+    "action": "Створено резервну копію бази даних",
+    "timestamp": "2025-05-22T10:47:02.708Z",
+    "timeOn": 0,
+    "timeOff": 0,
+    "averageLightTime": 0
+  },
+  {
+    "_id": "682f014a2428fef73868b501",
+    "user_id": "682caab3e0815cbfa43169ca",
+    "room_id": "682e2c3fadba08059fdf89f4",
+    "action": "Змінено кімнату \"Кімната 3\": Назва: \"йцуйцу\" → \"Кімната 3\"",
+    "timestamp": "2025-05-22T10:49:46.336Z",
+    "timeOn": 0,
+    "timeOff": 0,
+    "averageLightTime": 0
+  },
+  {
+    "_id": "682f05ff81d233d87a2c13a9",
+    "user_id": "682caab3e0815cbfa43169ca",
+    "room_id": "682e2c3fadba08059fdf89f4",
+    "action": "Змінено кімнату \"Кімната 333\": Назва: \"Кімната 3\" → \"Кімната 333\", IoT ID: \"123\" → \"1233\", Дистанція: 12 → 123, Статус: увімкнено → вимкнено, Яскравість: 100% → 50%",
+    "timestamp": "2025-05-22T11:09:51.584Z",
+    "timeOn": 0,
+    "timeOff": 0,
+    "averageLightTime": 0
+  },
+  {
+    "_id": "682f0d1581d233d87a2c14d1",
+    "user_id": "682caab3e0815cbfa43169ca",
+    "room_id": "682e2c3fadba08059fdf89f4",
+    "action": "Змінено кімнату \"Кімната 3\": Назва: \"Кімната 333\" → \"Кімната 3\", IoT ID: \"1233\" → \"123\", Статус: вимкнено → увімкнено, Яскравість: 50% → 27%",
+    "timestamp": "2025-05-22T11:40:05.850Z",
+    "timeOn": 0,
+    "timeOff": 0,
+    "averageLightTime": 0
+  },
+  {
+    "_id": "682f161c81d233d87a2c164f",
+    "user_id": "682caab3e0815cbfa43169ca",
+    "action": "Створено резервну копію бази даних",
+    "timestamp": "2025-05-22T12:18:36.838Z",
+    "timeOn": 0,
+    "timeOff": 0,
+    "averageLightTime": 0
+  },
+  {
+    "_id": "682f168781d233d87a2c1661",
+    "user_id": "6762eeb50ce0c549542bfd7d",
+    "room_id": "6762eeb60ce0c549542bfd84",
+    "action": "Змінено кімнату \"Спальня\": Дистанція: 313.07 → 313, Статус: вимкнено → увімкнено, Яскравість: 100% → 50%",
+    "timestamp": "2025-05-22T12:20:23.153Z",
+    "timeOn": 0,
+    "timeOff": 0,
+    "averageLightTime": 0
+  },
+  {
+    "_id": "682f748fefb9b67864a6d691",
+    "user_id": "682caab3e0815cbfa43169ca",
+    "action": "Створено резервну копію бази даних",
+    "timestamp": "2025-05-22T19:01:35.109Z",
+    "timeOn": 0,
+    "timeOff": 0,
+    "averageLightTime": 0
+  },
+  {
+    "_id": "682f74e3efb9b67864a6d699",
+    "user_id": "682caab3e0815cbfa43169ca",
+    "room_id": "682f74e3efb9b67864a6d697",
+    "action": "Додано нову кімнату \"Тестова кымната\"",
+    "timestamp": "2025-05-22T19:02:59.291Z",
+    "timeOn": 0,
+    "timeOff": 0,
+    "averageLightTime": 0
+  }
+]

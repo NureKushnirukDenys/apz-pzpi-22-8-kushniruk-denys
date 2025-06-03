@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "6762eeb50ce0c549542bfd7d",
+    "email": "user1@example.com",
+    "password": "hashedpassword1",
+    "role": "user",
+    "firstName": "John",
+    "lastName": "Doe",
+    "profileImage": "https://ui-avatars.com/api/?name=User&background=0D8ABC&color=fff"
+  },
+  {
+    "_id": "6762eeb60ce0c549542bfd80",
+    "email": "admin@example.com",
+    "password": "hashedpassword2",
+    "role": "admin",
+    "firstName": "Admin",
+    "lastName": "User",
+    "profileImage": "https://ui-avatars.com/api/?name=User&background=0D8ABC&color=fff"
+  },
+  {
+    "_id": "682caab3e0815cbfa43169ca",
+    "email": "test@example.com",
+    "password": "$2a$10$R7uOLRWw2XyOPvUFjg4ose8sRk7.d4Oj6pI8H3TUP.Zf8Ax6jQO/q",
+    "role": "superadmin",
+    "firstName": "Name",
+    "lastName": "LastName",
+    "profileImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTML0gExaohZHdZW3609F12nUmVc14WXYNx_w&s"
+  },
+  {
+    "_id": "682f758aefb9b67864a6d6ab",
+    "email": "test2@example.com",
+    "password": "$2a$10$GkIRVIigFZv8D..1Foab4uhcqXvFnvY3uD8SXPbPy9gOuJIyG28Ki",
+    "role": "user",
+    "firstName": "TestName2",
+    "lastName": "TestLastName2",
+    "profileImage": "https://ui-avatars.com/api/?name=User&background=0D8ABC&color=fff"
+  }
+]
